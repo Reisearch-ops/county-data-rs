@@ -8,6 +8,7 @@ The base requirement is **every Florida property across all 67 counties**. Bedro
 
 Implementation status:
 
+- Full statewide pipeline runner: `fl/pipeline.py`
 - Raw downloader: `fl/downloader.py`
 - Normalized parcel writer: `fl/normalizer.py`
 - Address normalization/hash: `shared/address.py`

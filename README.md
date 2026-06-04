@@ -16,7 +16,16 @@ Multi-state county property data ingestion from primary government sources.
 ```bash
 pip install -r requirements.txt
 
-# Download all 67 counties (NAL + SDF)
+# Full statewide base pipeline: download, extract, normalize all 67 counties
+python -m fl.pipeline
+
+# Process one county end-to-end
+python -m fl.pipeline --county Baker
+
+# Normalize from already extracted CSVs only
+python -m fl.pipeline --skip-download
+
+# Download all 67 counties (NAL + SDF) only
 python -m fl.downloader
 
 # Download single county
