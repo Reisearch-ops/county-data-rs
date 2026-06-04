@@ -32,6 +32,18 @@ class AddressNormalizationTests(unittest.TestCase):
         self.assertEqual(addr.normalized, "10 2nd RD APT 5, Orlando, FL 32801")
         self.assertEqual(addr.address_hash, hash_address(addr.normalized))
 
+    def test_address_validity_string_and_equality(self):
+        addr = new_address("123 Main Street, Miami, Florida 33101-1234")
+        same = new_address("123 main st, miami, FL 33101")
+        different = new_address("124 Main Street, Miami, FL 33101")
+
+        self.assertTrue(addr.is_valid())
+        self.assertEqual(str(addr), "123 Main ST, Miami, FL 33101")
+        self.assertTrue(addr.equals(same))
+        self.assertEqual(addr, same)
+        self.assertFalse(addr.equals(different))
+        self.assertFalse(addr.equals(None))
+
 
 if __name__ == "__main__":
     unittest.main()

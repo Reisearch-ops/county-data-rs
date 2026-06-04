@@ -135,6 +135,21 @@ class Address:
     def address_hash(self) -> str:
         return hash_normalized_address(self.normalized)
 
+    def is_valid(self) -> bool:
+        """Return True when the address has the minimum required fields."""
+        return bool(self.street_address and self.city and self.state and self.zip_code)
+
+    def equals(self, other: object) -> bool:
+        """Return True when another Address has the same normalized form."""
+        return isinstance(other, Address) and self.normalized == other.normalized
+
+    def __str__(self) -> str:
+        """Return the canonical normalized address string."""
+        return self.normalized
+
+    def __eq__(self, other: object) -> bool:
+        return self.equals(other)
+
 
 class AddressNormalizationError(ValueError):
     """Raised when an address cannot be normalized into street/city/state/ZIP."""
