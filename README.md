@@ -25,6 +25,12 @@ python -m fl.downloader --county Dade --type nal
 # Download and extract CSVs
 python -m fl.downloader --extract
 
+# Normalize an extracted county into standard parcel schema
+python -m fl.normalizer --county Baker \
+  --nal /tmp/baker_nal/NAL12F202502VAB.csv \
+  --sdf /tmp/baker_sdf/SDF12F202502VAB.csv \
+  --output /tmp/baker.parcels.csv
+
 # Preview URLs without downloading
 python -m fl.downloader --dry-run
 ```

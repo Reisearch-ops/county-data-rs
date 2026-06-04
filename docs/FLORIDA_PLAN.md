@@ -6,6 +6,12 @@ Build a complete Florida property dataset first, then enrich and productize it.
 
 The base requirement is **every Florida property across all 67 counties**. Bedroom/bathroom coverage is valuable, but it must not block statewide parcel coverage.
 
+Implementation status:
+
+- Raw downloader: `fl/downloader.py`
+- Normalized parcel writer: `fl/normalizer.py`
+- Address normalization/hash: `shared/address.py`
+
 ## Phase 1 — Statewide base ingest
 
 Source: Florida Department of Revenue bulk tax roll files.

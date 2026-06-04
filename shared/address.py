@@ -435,6 +435,7 @@ def normalize_street_address(street: str) -> str:
     words = [ORDINALS.get(word, normalize_ordinal_token(word)) for word in words]
     words = normalize_directional_tokens(words)
     words = [STREET_ABBREVIATIONS.get(word, word) for word in words]
+    words = normalize_unit_tokens(words, NormalizationContext())
     if words and words[0] in NUMBER_WORDS:
         words[0] = NUMBER_WORDS[words[0]]
     return to_title_case(" ".join(words))
