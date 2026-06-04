@@ -11,6 +11,7 @@ Implementation status:
 - Full statewide pipeline runner: `fl/pipeline.py`
 - Raw downloader: `fl/downloader.py`
 - Normalized parcel writer: `fl/normalizer.py`
+- Postgres schema and loader: `db/schema.sql`, `fl/load_db.py`
 - Address normalization/hash: `shared/address.py`
 
 ## Phase 1 — Statewide base ingest
@@ -69,9 +70,16 @@ Once normalized statewide data exists, build a query layer for the frontend.
 
 Recommended first storage/index shape:
 
-- Postgres for canonical property records.
+- **Postgres as canonical store** using `fl.properties`.
 - PostGIS later if we add parcel polygons/GIS search.
 - OpenSearch/Meilisearch only if Postgres full-text/trigram search is not enough.
+
+Current loader:
+
+```bash
+export DATABASE_URL='postgresql://user:***@localhost:5432/county_data'
+python -m fl.load_db /data/county-data/fl/data/normalized
+```
 
 Initial search requirements:
 

@@ -25,6 +25,10 @@ python -m fl.pipeline --county Baker
 # Normalize from already extracted CSVs only
 python -m fl.pipeline --skip-download
 
+# Load normalized CSVs into Postgres
+export DATABASE_URL='postgresql://user:password@localhost:5432/county_data'
+python -m fl.load_db /data/county-data/fl/data/normalized
+
 # Download all 67 counties (NAL + SDF) only
 python -m fl.downloader
 
@@ -95,9 +99,27 @@ Full product/data plan: `docs/FLORIDA_PLAN.md`.
 data/fl/
 ├── nal/          # Downloaded NAL zips by county
 ├── sdf/          # Downloaded SDF zips by county
+├── normalized/   # Normalized parcel CSVs ready for DB load
 ├── enriched/     # Enriched CSV output
-└── ...
+└── manifests/    # Pipeline run summaries
 ```
+
+## Database
+
+Postgres is the canonical database for search, property detail pages, KPIs, and future GIS joins.
+
+```bash
+# Create database once
+createdb county_data
+
+# Load all normalized Florida county CSVs
+export DATABASE_URL='postgresql://user:password@localhost:5432/county_data'
+python -m fl.load_db /data/county-data/fl/data/normalized
+```
+
+Schema: `db/schema.sql`
+
+Main table: `fl.properties`
 
 ## Environment Variables
 
