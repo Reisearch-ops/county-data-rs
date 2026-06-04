@@ -75,10 +75,19 @@ FL_COUNTIES = [
 FL_DOR_BASE = "https://floridarevenue.com/property/dataportal/Documents/PTO%20Data%20Portal"
 
 # Data types available
+# DOR file names are not always the same as canonical county display names.
+# Keep canonical names in FL_COUNTIES; use these only when constructing DOR URLs
+# and locating extracted raw folders.
+DOR_DOWNLOAD_NAME_OVERRIDES = {
+    "Indian River": "Indin River",  # Typo in 2025 DOR file name
+    "St. Johns": "Saint Johns",
+    "St. Lucie": "Saint Lucie",
+}
+
 DATA_TYPES = {
-    "nal": "NAL",     # Name-Address-Legal (tax roll)
-    "sdf": "SDF",     # Sales Data File
-    "nap": "NAP",     # Name-Address-Property (tangible personal property)
+    "nal": "NAL",  # Name-Address-Legal
+    "sdf": "SDF",  # Sales Data File
+    "nap": "NAP",  # Tangible Personal Property
 }
 
 # Current tax year folder

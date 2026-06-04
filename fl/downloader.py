@@ -25,7 +25,7 @@ from typing import Optional
 import requests
 from tqdm import tqdm
 
-from fl.config import FL_COUNTIES, FL_DOR_BASE, DATA_TYPES, TAX_YEAR
+from fl.config import FL_COUNTIES, FL_DOR_BASE, DATA_TYPES, TAX_YEAR, DOR_DOWNLOAD_NAME_OVERRIDES
 from shared import data_dir, setup_logging, ensure_dir
 
 logger = logging.getLogger("county-data.fl")
@@ -45,7 +45,8 @@ def build_url(county_name: str, county_num: int, data_type: str) -> str:
     """Build the download URL for a county's data file."""
     # URL pattern: /NAL/2025F/CountyName%20XX%20Final%20NAL%202025.zip
     folder = DATA_TYPES[data_type]
-    filename = f"{county_name}%20{county_num}%20Final%20{folder}%20{TAX_YEAR[:4]}.zip"
+    dor_county_name = DOR_DOWNLOAD_NAME_OVERRIDES.get(county_name, county_name)
+    filename = f"{dor_county_name}%20{county_num}%20Final%20{folder}%20{TAX_YEAR[:4]}.zip"
     return f"{FL_DOR_BASE}/Tax%20Roll%20Data%20Files/{folder}/{TAX_YEAR}/{filename}"
 
 
