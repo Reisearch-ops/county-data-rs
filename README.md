@@ -55,6 +55,25 @@ python -m fl.enricher --county Dade --csv parcels.csv
 
 These are available at the **county property appraiser** level and handled by `fl/enricher.py`.
 
+### Statewide Coverage Rule
+
+Florida base coverage must include **every property in all 67 counties** using DOR NAL/SDF files. County PA enrichment adds nullable fields like beds/baths; enrichment gaps must not exclude a property from the statewide dataset.
+
+### Address Hashing
+
+`shared/address.py` normalizes USPS-style situs addresses and creates a deterministic SHA-256 `property_address_hash` for deduplication/search joins.
+
+```python
+from shared.address import hash_address, normalize_address_string
+
+normalized = normalize_address_string("123 Main Street, Miami, Florida 33101-1234")
+# "123 Main ST, Miami, FL 33101"
+
+property_address_hash = hash_address("123 Main Street, Miami, Florida 33101-1234")
+```
+
+Full product/data plan: `docs/FLORIDA_PLAN.md`.
+
 ## Directory Structure
 
 ```
